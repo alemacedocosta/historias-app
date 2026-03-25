@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { db } from "A/lib/db";
+import { db } from "@/lib/db";
 
 async function getMembro(espacoId: string, userId: string) {
   return db.membro.findUnique({
@@ -14,7 +14,7 @@ export async function GET(
 ) {
   const session = await auth();
   if (!session?.user?.id) {
-    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+    return NextResponse.json({ error: "NÃ£o autorizado" }, { status: 401 });
   }
 
   const membro = await getMembro(params.id, session.user.id);
@@ -33,7 +33,7 @@ export async function GET(
   });
 
   if (!espaco) {
-    return NextResponse.json({ error: "Espaço não encontrado" }, { status: 404 });
+    return NextResponse.json({ error: "EspaÃ§o nÃ£o encontrado" }, { status: 404 });
   }
 
   return NextResponse.json(espaco);
@@ -45,12 +45,12 @@ export async function DELETE(
 ) {
   const session = await auth();
   if (!session?.user?.id) {
-    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+    return NextResponse.json({ error: "NÃ£o autorizado" }, { status: 401 });
   }
 
   const membro = await getMembro(params.id, session.user.id);
   if (!membro || membro.papel !== "ADMIN") {
-    return NextResponse.json({ error: "Apenas admins podem excluir espaços" }, { status: 403 });
+    return NextResponse.json({ error: "Apenas admins podem excluir espaÃ§os" }, { status: 403 });
   }
 
   await db.espaco.delete({ where: { id: params.id } });
