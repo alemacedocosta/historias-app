@@ -1,8 +1,8 @@
-import { auth } from "A/lib/auth";
-import { db } from "A/lib/db";
+import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { hasAccess } from "@/lib/subscription";
-import { PaywallGate } from "A/components/paywall/paywall-gate";
+import { PaywallGate } from "@/components/paywall/paywall-gate";
 import { EspacoCard } from "@/components/espaco/espaco-card";
 import { CriarEspacoButton } from "@/components/espaco/criar-espaco-button";
 import { BookOpen } from "lucide-react";
@@ -29,8 +29,8 @@ export default async function DashboardPage() {
   if (!aceesso) {
     return (
       <PaywallGate
-        titulo="Sua avaliação gratuita expirou"
-        descricao="Assine o plano PRO para criar espaços familiares e preservar suas memórias para sempre."
+        titulo="Sua avaliaÃ§Ã£o gratuita expirou"
+        descricao="Assine o plano PRO para criar espaÃ§os familiares e preservar suas memÃ³rias para sempre."
       />
     );
   }
@@ -39,9 +39,9 @@ export default async function DashboardPage() {
     <div className="max-w-4xl mx-auto px-6 py-10">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Seus espaços </h1>
+          <h1 className="text-3xl font-bold text-foreground">Seus espaÃ§os </h1>
           <p className="text-muted-foreground text-lg mt-1">
-            Cada espaço é o livro de memórias de uma famõlia.
+            Cada espaÃ§o Ã© o livro de memÃ³rias de uma famÃµlia.
           </p>
         </div>
         <CriarEspacoButton />
@@ -50,9 +50,9 @@ export default async function DashboardPage() {
       {membros.length === 0 ? (
         <div className="border border-border p-12 text-center bg-secondary/30">
           <BookOpen className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-          <h2 className="text-xl font-bold mb-2">Nenhum espaço ainda</h2>
+          <h2 className="text-xl font-bold mb-2">Nenhum espaÃ§o ainda</h2>
           <p className="text-muted-foreground text-base max-w-md mx-auto">
-            Cria the primeiro espaço da sua famõlia e comece a registrar histórias que durarão para sempre.
+            Cria the primeiro espaÃ§o da sua famÃµlia e comece a registrar histÃ³rias que durarÃ£o para sempre.
           </p>
         </div>
       ) : (
