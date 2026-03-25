@@ -23,7 +23,7 @@ enum MemberRole {
 }
 
 model User {
-  id                     String    @id @default(cuid2())
+  id                     String    @id @default(uuid())
   name                   String?
   email                  String    @unique
   emailVerified          DateTime?
@@ -46,7 +46,7 @@ model User {
 }
 
 model Account {
-  id                String  @id @default(cuid2())
+  id                String  @id @default(uuid())
   userId            String
   type              String
   provider          String
@@ -65,7 +65,7 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(cuid2())
+  id           String   @id @default(uuid())
   sessionToken String   @unique
   userId       String
   expires      DateTime
@@ -81,10 +81,10 @@ model VerificationToken {
 }
 
 model Espaco {
-  id                  String    @id @default(cuid2())
+  id                  String    @id @default(uuid())
   nome                String
   criadoPor           String
-  codigoConvite       String    @unique @default(cuid2())
+  codigoConvite       String    @unique @default(uuid())
   armazenamentoUsadoMb Float    @default(0)
   arquivadoEm         DateTime?
   criadoEm            DateTime  @default(now())
@@ -97,7 +97,7 @@ model Espaco {
 }
 
 model Memoria {
-  id                String    @id @default(cuid2())
+  id                String    @id @default(uuid())
   espacoId          String
   autorId           String
   titulo            String
@@ -117,7 +117,7 @@ model Memoria {
 }
 
 model Membro {
-  id           String     @id @default(cuid2())
+  id           String     @id @default(uuid())
   espacoId     String
   userId       String
   papel        MemberRole @default(MEMBRO)
@@ -131,10 +131,10 @@ model Membro {
 }
 
 model Convite {
-  id          String    @id @default(cuid2())
+  id          String    @id @default(uuid())
   espacoId    String
   criadoPor   String
-  codigo      String    @unique @default(cuid2())
+  codigo      String    @unique @default(uuid())
   usadoPor    String?
   usadoEm     DateTime?
   expiraEm    DateTime
