@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "A/components/ui/label";
+import { Label } from "@/components/ui/label";
 import { Plus, X, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -66,11 +66,11 @@ export function NovaMemoriaButton({ espacoId }: NovaMemoriaButtonProps) {
       });
 
       if (!res.ok) throw new Error();
-      toast.success("Memória salva!");
+      toast.success("MemÃ³ria salva!");
       handleClose();
       router.refresh();
     } catch {
-      toast.error("Erro ao salvar memória. Tente novamente.");
+      toast.error("Erro ao salvar memÃ³ria. Tente novamente.");
     } finally {
       setLoading(false);
     }
@@ -83,7 +83,7 @@ export function NovaMemoriaButton({ espacoId }: NovaMemoriaButtonProps) {
         className="h-[48px] px-4 text-base font-bold bg-foreground text-background hover:bg-foreground/90 flex items-center gap-2"
       >
         <Plus className="w-5 h-5" />
-        Nova memória
+        Nova memÃ³ria
       </Button>
     );
   }
@@ -92,23 +92,23 @@ export function NovaMemoriaButton({ espacoId }: NovaMemoriaButtonProps) {
     <div className="fixed inset-0 z-50 bg-foreground/20 flex items-center justify-center p-4 overflow-y-auto">
       <div className="bg-background border border-border p-8 w-full max-w-lg my-auto">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold">Registrar memória</h2>
+          <h2 className="text-xl font-bold">Registrar memÃ³ria</h2>
           <button onClick={handleClose} aria-label="Fechar" className="text-muted-foreground hover:text-foreground">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Título */}
+          {/* TÃ­tulo */}
           <div className="space-y-2">
             <Label htmlFor="titulo" className="text-base font-medium">
-              Título da memória <span className="text-destructive">*</span>
+              TÃ­tulo da memÃ³ria <span className="text-destructive">*</span>
             </Label>
             <Input
               id="titulo"
               value={titulo}
               onChange={(e) => setTitulo(e.target.value)}
-              placeholder="Ex: Viagem para a praia em família"
+              placeholder="Ex: Viagem para a praia em famÃ­lia"
               className="h-[56px] text-lg"
               maxLength={120}
               required
@@ -139,13 +139,13 @@ export function NovaMemoriaButton({ espacoId }: NovaMemoriaButtonProps) {
           {/* Texto */}
           <div className="space-y-2">
             <Label htmlFor="conteudo" className="text-base font-medium">
-              Conte a história
+              Conte a histÃ³ria
             </Label>
             <Textarea
               id="conteudo"
               value={conteudo}
               onChange={(e) => setConteudo(e.target.value)}
-              placeholder="Escreva o que você lembra sobre esse momento..."
+              placeholder="Escreva o que vocÃª lembra sobre esse momento..."
               className="text-base min-h-[120px] resize-y"
               maxLength={5000}
             />
@@ -168,7 +168,7 @@ export function NovaMemoriaButton({ espacoId }: NovaMemoriaButtonProps) {
             </label>
             {imagem && (
               <p className="text-sm text-muted-foreground">
-                {(imagem.size / 1024 / 1024).toFixed(1)}MB — máximo 2MB
+                {(imagem.size / 1024 / 1024).toFixed(1)}MB â mÃ¡ximo 2MB
               </p>
             )}
           </div>
@@ -178,7 +178,7 @@ export function NovaMemoriaButton({ espacoId }: NovaMemoriaButtonProps) {
             disabled={loading || !titulo.trim()}
             className="w-full h-[72px] text-lg font-bold bg-foreground text-background hover:bg-foreground/90"
           >
-            {loading ? "Salvando..." : "Salvar memória"}
+            {loading ? "Salvando..." : "Salvar memÃ³ria"}
           </Button>
         </form>
       </div>
