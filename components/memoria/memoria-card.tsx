@@ -64,7 +64,7 @@ export function MemoriaCard({ memoria, isOwner }: MemoriaCardProps) {
           <Image
             src={memoria.imagemUrl}
             alt={memoria.titulo}
-            fill=
+            fill
             className="object-cover"
             sizes="(max-width: 640px) 100vw, 640px"
           />
@@ -72,7 +72,7 @@ export function MemoriaCard({ memoria, isOwner }: MemoriaCardProps) {
       )}
 
       {/* Conteúdo */}
-      { memoria.conteudo && (
+      {memoria.conteudo && (
         <p className="text-base text-foreground leading-relaxed whitespace-pre-wrap">
           {memoria.conteudo}
         </p>

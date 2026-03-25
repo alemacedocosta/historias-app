@@ -29,17 +29,17 @@ export default async function DashboardPage() {
   if (!acesso) {
     return (
       <PaywallGate
-        titulo="Sua avalia��o gratuita expirou"
-        descricao="Assine o plano PRO para criar espa�as familiares e preservar suas memórias para sempre."
+        titulo="Sua avaliação gratuita expirou"
+        descricao="Assine o plano PRO para criar espaços familiares e preservar suas memórias para sempre."
       />
     );
   }
 
   return (
-    <div className="max-w-4lx mx-auto px-6 py-10">
+    <div className="max-w-4xl mx-auto px-6 py-10">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3hl font-bold text-foreground">Seus espaços</h1>
+          <h1 className="text-3xl font-bold text-foreground">Seus espaços</h1>
           <p className="text-muted-foreground text-lg mt-1">
             Cada espaço é o livro de memórias de uma família.
           </p>
