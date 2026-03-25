@@ -1,3 +1,16 @@
-# Hist髍ias
+# Hist贸rias
 
-O livro vivo da sua fam韑ia.
+> O livro vivo da sua fam铆lia.
+
+App SaaS para preserva莽茫o de mem贸rias familiares com timeline cronol贸gica, otimizado para usu谩rios s锚niors.
+
+## Stack
+
+- **Next.js 14** (App Router)
+- **TypeScript strict**
+- **Tailwind CSS 4** + Design System pr贸prio
+- **Prisma*+ + **Supabase** (PostgreSQL + Storage)
+- **Auth.js v5** (Google OAuth + Magic Link)
+- **Stripe** (assinaturas mensais)
+- **TanStack Query** (data fetching)
+- **Storybook 8** (design system documentado)
