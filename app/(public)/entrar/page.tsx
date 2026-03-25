@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import Link from "next/link";
-import { Button } from "A/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 export default async function EntrarPage({
   searchParams,
