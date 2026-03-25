@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { db } from "A/lib/db";
+import { db } from "@/lib/db";
 import { criarEspacoSchema } from "@/lib/validations";
 import { hasAccess } from "@/lib/subscription";
 
 export async function GET() {
   const session = await auth();
   if (!session?.user?.id) {
-    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+    return NextResponse.json({ error: "NÃ£o autorizado" }, { status: 401 });
   }
 
   const membros = await db.membro.findMany({
@@ -33,13 +33,13 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   const session = await auth();
   if (!session?.user?.id) {
-    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+    return NextResponse.json({ error: "NÃ£o autorizado" }, { status: 401 });
   }
 
   const user = await db.user.findUnique({ where: { id: session.user.id } });
   if (!user || !hasAccess(user)) {
     return NextResponse.json(
-      { error: "Plano PRO necessâiro para criar espaços" },
+      { error: "Plano PRO necessÃ¢iro para criar espaÃ§os" },
       { status: 403 }
     );
   }
