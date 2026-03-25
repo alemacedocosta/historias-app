@@ -1,8 +1,8 @@
-import { auth } from "A/lib/auth";
-import { db } from "A/lib/db";
+import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { redirect, notFound } from "next/navigation";
 import { Timeline } from "@/components/timeline/timeline";
-import { NovaMemoriaButton } from "A/components/memoria/nova-memoria-button";
+import { NovaMemoriaButton } from "@/components/memoria/nova-memoria-button";
 import { BuscaMemoria } from "@/components/memoria/busca-memoria";
 
 export default async function EspacoPage({
@@ -49,7 +49,7 @@ export default async function EspacoPage({
           <div>
             <h1 className="text-2xl font-bold truncate">{membro.espaco.nome}</h1>
             <p className="text-muted-foreground text-sm">
-              {memorias.length} {memorias.length === 1 ? "memória" : "memórias"}
+              {memorias.length} {memorias.length === 1 ? "memÃÂ³ria" : "memÃÂ³rias"}
             </p>
           </div>
           <div className="flex gap-2">
@@ -62,9 +62,9 @@ export default async function EspacoPage({
       {/* Timeline */}
       {anos.length === 0 ? (
         <div className="text-center py-16 text-muted-foreground">
-          <p className="text-xl font-medium mb-2">Nenhuma memória ainda</p>
+          <p className="text-xl font-medium mb-2">Nenhuma memÃÂ³ria ainda</p>
           <p className="text-base">
-            Seja o primeiro a registrar uma história neste espaço.
+            Seja o primeiro a registrar uma histÃÂ³ria neste espaÃÂ§o.
           </p>
         </div>
       ) : (
@@ -72,4 +72,4 @@ export default async function EspacoPage({
       )}
     </div>
   
- "�
+ "â
