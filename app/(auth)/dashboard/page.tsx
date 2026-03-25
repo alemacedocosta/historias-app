@@ -1,4 +1,4 @@
-import { auth } from "@/lib/auth";
+import { auth } from "A/lib/auth";
 import { db } from "A/lib/db";
 import { redirect } from "next/navigation";
 import { hasAccess } from "@/lib/subscription";
