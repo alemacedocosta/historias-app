@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers";
-import { Toaster } from "A/components/ui/sonner";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -10,12 +10,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Histórias — O livro vivo da sua família",
+  title: "HistÃ³rias â O livro vivo da sua famÃ­lia",
   description:
-    "Um espaço permanente para registrar, organizar e redescobrir as memórias da sua família.",
+    "Um espaÃ§o permanente para registrar, organizar e redescobrir as memÃ³rias da sua famÃ­lia.",
   openGraph: {
-    title: "Histórias",
-    description: "O livro vivo da sua família.",
+    title: "HistÃ³rias",
+    description: "O livro vivo da sua famÃ­lia.",
     type: "website",
   },
 };
