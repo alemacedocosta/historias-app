@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Lock } from "lucide-react";
-import { Button } from "A/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 interface PaywallGateProps {
   titulo: string;
@@ -22,10 +22,10 @@ export function PaywallGate({ titulo, descricao }: PaywallGateProps) {
         <Link href="/settings/billing">Assinar por R$ 19,90/m7as</Link>
       </Button>
       <p className="mt-4 text-sm text-muted-foreground">
-        14 dias grátis para testar. Cancele quando quiser.
+        14 dias grÃÂ¡tis para testar. Cancele quando quiser.
       </p>
     </div>
   (}
-(B�
+(BÂ»
   r
  
