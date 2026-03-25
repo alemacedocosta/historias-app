@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "A/lib/auth";
-import { db } from "A/lib/db";
+import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseAdmin = createClient(
@@ -11,7 +11,7 @@ const supabaseAdmin = createClient(
 export async function POST(request: NextRequest) {
   const session = await auth();
   if (!session?.user?.id) {
-    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+    return NextResponse.json({ error: "NÃ£o autorizado" }, { status: 401 });
   }
 
   const formData = await request.formData();
@@ -19,12 +19,12 @@ export async function POST(request: NextRequest) {
   const espacoId = formData.get("espacoId") as string;
 
   if (!file || !espacoId) {
-    return NextResponse.json({ error: "Arquivo e espacoId obrigatórios" }, { status: 400 });
+    return NextResponse.json({ error: "Arquivo e espacoId obrigatÃ³rios" }, { status: 400 });
   }
 
   const MAX_SIZE = 2 * 1024 * 1024; // 2MB
   if (file.size > MAX_SIZE) {
-    return NextResponse.json({ error: "Imagem deve ter no máximo 2MB" }, { status: 400 });
+    return NextResponse.json({ error: "Imagem deve ter no mÃ¡ximo 2MB" }, { status: 400 });
   }
 
   const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
     .from("memorias")
     .getPublicUrl(data.path);
 
-  // Atualizar storage usado do espaço
+  // Atualizar storage usado do espaÃ§o
   const tamanhoMb = file.size / (1024 * 1024);
   await db.espaco.update({
     where: { id: espacoId },
