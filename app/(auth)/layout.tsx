@@ -1,4 +1,4 @@
-import { auth } from "A/lib/auth";
+import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { AppSidebar } from "@/components/layout/app-sidebar";
 import { TrialBanner } from "@/components/paywall/trial-banner";
