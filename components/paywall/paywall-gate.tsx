@@ -19,13 +19,11 @@ export function PaywallGate({ titulo, descricao }: PaywallGateProps) {
         asChild
         className="h-[72px] px-8 text-lg font-bold bg-foreground text-background hover:bg-foreground/90"
       >
-        <Link href="/settings/billing">Assinar por R$ 19,90/m7as</Link>
+        <Link href="/settings/billing">Assinar por R$ 19,90/mês</Link>
       </Button>
       <p className="mt-4 text-sm text-muted-foreground">
-        14 dias grÃÂ¡tis para testar. Cancele quando quiser.
+        14 dias grátis para testar. Cancele quando quiser.
       </p>
     </div>
-  (}
-(BÂ»
-  r
- 
+  );
+}

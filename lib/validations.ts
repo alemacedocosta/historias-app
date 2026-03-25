@@ -9,7 +9,7 @@ export const criarEspacoSchema = z.object({
     .max(80, "Nome deve ter no máximo 80 caracteres"),
 });
 
-export const criarMemoriaSchema : z.object({
+export const criarMemoriaSchema = z.object({
   titulo: z
     .string()
     .min(2, "Título deve ter pelo menos 2 caracteres")

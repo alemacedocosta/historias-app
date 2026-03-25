@@ -17,15 +17,15 @@ export function MemoriaCard({ memoria, isOwner }: MemoriaCardProps) {
   const router = useRouter();
 
   async function handleDelete() {
-    if (!confirm("Tem certeza que deseja excluir esta memÃ³ria?")) return;
+    if (!confirm("Tem certeza que deseja excluir esta memória?")) return;
     setLoading(true);
     try {
       const res = await fetch(`/api/memorias/${memoria.id}`, { method: "DELETE" });
       if (!res.ok) throw new Error();
-      toast.success("MemÃ³ria excluÃ­da");
+      toast.success("Memória excluída");
       router.refresh();
     } catch {
-      toast.error("Erro ao excluir memÃ³ria");
+      toast.error("Erro ao excluir memória");
     } finally {
       setLoading(false);
     }
@@ -38,7 +38,7 @@ export function MemoriaCard({ memoria, isOwner }: MemoriaCardProps) {
         <div className="flex-1">
           <h3 className="text-lg font-bold text-foreground leading-tight">{memoria.titulo}</h3>
           <p className="text-sm text-muted-foreground mt-1">
-            Por {memoria.autor.name ?? "AnÃ´nimo"}
+            Por {memoria.autor.name ?? "Anônimo"}
           </p>
         </div>
 
@@ -48,7 +48,7 @@ export function MemoriaCard({ memoria, isOwner }: MemoriaCardProps) {
               variant="ghost"
               size="icon"
               className="h-10 w-10 text-muted-foreground hover:text-foreground"
-              aria-label="Excluir memÃ³ria"
+              aria-label="Excluir memória"
               onClick={handleDelete}
               disabled={loading}
             >
@@ -64,14 +64,14 @@ export function MemoriaCard({ memoria, isOwner }: MemoriaCardProps) {
           <Image
             src={memoria.imagemUrl}
             alt={memoria.titulo}
-            fill=
+            fill
             className="object-cover"
             sizes="(max-width: 640px) 100vw, 640px"
           />
         </div>
       )}
 
-      {/* ConteÃºdo */}
+      {/* Conteúdo */}
       {memoria.conteudo && (
         <p className="text-base text-foreground leading-relaxed whitespace-pre-wrap">
           {memoria.conteudo}

@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
-import { db } from "@/lib/db";
+import { auth } from "A/lib/auth";
+import { db } from "A/lib/db";
 import { criarMemoriaSchema } from "@/lib/validations";
 
 export async function GET(request: NextRequest) {
   const session = await auth();
   if (!session?.user?.id) {
-    return NextResponse.json({ error: "NÃ£o autorizado" }, { status: 401 });
+    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
   const { searchParams } = new URL(request.url);
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
   const ano = searchParams.get("ano");
 
   if (!espacoId) {
-    return NextResponse.json({ error: "espacoId obrigatÃ³rio" }, { status: 400 });
+    return NextResponse.json({ error: "espacoId obrigatório" }, { status: 400 });
   }
 
   const membro = await db.membro.findUnique({
@@ -32,12 +32,12 @@ export async function GET(request: NextRequest) {
       ...(ano ? { anoAcontecimento: parseInt(ano) } : {}),
       ...(busca
         ? {
-          OR: [
-            { titulo: { contains: busca, mode: "insensitive" } },
-            { conteudo: { contains: busca, mode: "insensitive" } },
-          ],
-        }
-        : {}),
+            OR: [
+              { titulo: { contains: busca, mode: "insensitive" } },
+              { conteudo: { contains: busca, mode: "insensitive" } },
+            ],
+          }
+          : {}),
     },
     include: {
       autor: { select: { id: true, name: true, image: true } },
@@ -45,6 +45,7 @@ export async function GET(request: NextRequest) {
     orderBy: [{ anoAcontecimento: "desc" }, { criadoEm: "desc" }],
   });
 
+  // Agrupar por ano
   const porAno = memorias.reduce(
     (acc, memoria) => {
       const ano = memoria.anoAcontecimento;
@@ -53,7 +54,7 @@ export async function GET(request: NextRequest) {
       return acc;
     },
       {} as Record<number, typeof memorias>
-  );
+    );
 
   return NextResponse.json(porAno);
 }
@@ -61,7 +62,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   const session = await auth();
   if (!session?.user?.id) {
-    return NextResponse.json({ error: "NÃ£o autorizado" }, { status: 401 });
+    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
   const body = await request.json();
@@ -71,7 +72,9 @@ export async function POST(request: NextRequest) {
   }
 
   const membro = await db.membro.findUnique({
-    where: { espacoId_userId: { espacoId: body.espacoId, userId: session.user.id } },
+    where: {
+      espacoId_userId: { espacoId: body.espacoId, userId: session.user.id },
+    },
   });
   if (!membro) {
     return NextResponse.json({ error: "Accesso negado" }, { status: 403 });

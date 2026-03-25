@@ -15,7 +15,7 @@ export async function uploadImagem(
   userId: string
 ): Promise<{ url: string; tamanhoKb: number }> {
   if (file.size > MAX_FILE_SIZE_BYTES) {
-    throw new Error(`Imagem deve ter no máximo ${MX_FILE_SIZE_MB}MB`);
+    throw new Error(`Imagem deve ter no máximo ${MAX_FILE_SIZE_MB}MB`);
   }
 
   const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";

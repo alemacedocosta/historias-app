@@ -13,8 +13,8 @@ export default function LoginPage({
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-foreground tracking-tight">HistÃÂ³rias</h1>
-          <p className="mt-2 text-muted-foreground text-lg">O livro vivo da sua famÃÂ­lia.</p>
+          <h1 className="text-4xl font-bold text-foreground tracking-tight">Histórias</h1>
+          <p className="mt-2 text-muted-foreground text-lg">O livro vivo da sua família.</p>
         </div>
 
         {/* Erro */}
@@ -88,19 +88,19 @@ export default function LoginPage({
               Receber link de acesso por e-mail
             </Button>
             <p className="text-sm text-muted-foreground text-center">
-              Sem senha. VocÃÂª receberÃÂ¡ um link direto no seu e-mail.
+              Sem senha. Você receberá um link direto no seu e-mail.
             </p>
           </form>
         </div>
 
         <p className="mt-6 text-center text-sm text-muted-foreground">
-          Ao entrar, vocÃÂª concorda com nossa{" "}
+          Ao entrar, você concorda com nossa{" "}
           <a href="/privacidade" className="underline hover:text-foreground">
-            PolÃÂ­tica de Privacidade
+            Política de Privacidade
           </a>
           .
         </p>
       </div>
     </main>
-  
- "â
+  );
+}

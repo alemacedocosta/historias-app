@@ -1,34 +1,42 @@
-import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { db } from "@/lib/db";
+import { db } from "A/lib/db";
+import { NextResponse } from "next/server";
 
-// GET /api/convites?codigo=xxx Ã¢â¬â aceitar convite
-export async function GET(request: NextRequest) {
-  const session = await auth();
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "NÃÂ£o autorizado" }, { status: 401 });
+export async function GET(req: Request) {
+  try {
+    const session = await auth();
+    if (!session?.user?.id)
+      return NextResponse.json({ error: "not auth" }, { status: 401 });
+
+    const convites = await db.convite.findMany({
+      where: { emailRecebedor: session.user.email },
+      include: { espaco: true },
+    });
+
+    return NextResponse.json(convites);
+  } catch (e) {
+    return NextResponse.json({ error: String(e) }, { status: 500 });
   }
+}
 
-  const codigo = new URL(request.url).searchParams.get("codigo");
-  if (!codigo) {
-    return NextResponse.json({ error: "CÃÂ³digo obrigatÃÂ³rio" }, { status: 400 });
-  }
+export async function POST(req: Request) {
+  try {
+    const session = await auth();
+    if (!session?.user?.id)
+      return NextResponse.json({ error: "not auth" }, { status: 401 });
 
-  const convite = await db.convite.findUnique({
-    where: { codigo },
-    include: { espaco: true },
+    const { emailRecebedor, espacoId, expirarEm } = await req.json();
+
+    const convite = await db.convite.create({
+      data: {
+        codigo: Math.random().toString(36).substring(2, 8).toUpperCase(),
+        emailRecebedor,
+        espacoId,
+        criadoPor: session.user.id,
+        expiraEm,
+    },
   });
 
-  if (!convite) {
-    return NextResponse.json({ error: "Convite invÃÂ¡lido" }, { status: 404 });
-  }
-  if (convite.usadoEm) {
-    return NextResponse.json({ error: "Convite jÃÂ¡ utilizado" }, { status: 410 });
-  }
-  if (new Date(convite.expiraEm) < new Date()) {
-    return NextResponse.json({ error: "Convite expirado" }, { status: 410 });
-  }
-
-  // Verifica se jÃÂ¡ ÃÂ© membro
-  const jaEMembro = await db.membro.findUnique({
-    where: { espacoId_userId: { espacoId: convite.espacoId, userId: session.user.id } },(â¬ÂÃ´Â¤Ã¬((â¬ÂÂ¥Ëâ¬Â â¦Â©â¦5â¢Âµâ°ÃÂ¼Â¤ÂÃ¬(â¬â¬â¬Ââ¦Ãâ¦Â¥ÃÂâËÂ¹Âµâ¢Âµâ°ÃÂ¼Â¹ÂÃâ¢â¦ÃâÂ¡Ã¬(â¬â¬â¬â¬â¬Âââ¦ÃâÃ¨ÂÃ¬(â¬â¬â¬â¬â¬â¬â¬Ââ¢ÃÃâ¦ÂÂ½%ÂÃ¨ÂÂÂ½Â¹ÃÂ¥ÃâÂ¹â¢ÃÃâ¦ÂÂ½%ÂÂ°(â¬â¬â¬â¬â¬â¬â¬ÂÃÃâ¢Ã%ÂÃ¨ÂÃâ¢ÃÃÂ¥Â½Â¸Â¹ÃÃâ¢ÃÂ¹Â¥ÂÂ°(â¬â¬â¬â¬â¬â¬â¬ÂÃâ¦Ãâ¢Â°Ã¨â¬â°55	I<ËÂ°(â¬â¬â¬â¬â¬â¬â¬ÂÂÂ½Â¹ÃÂ¥ââ¦âÂ½AÂ½ÃÃ¨ÂÂÂ½Â¹ÃÂ¥ÃâÂ¹ÂÃÂ¥â¦âÂ½AÂ½ÃÂ°(â¬â¬â¬â¬â¬ÂÃ´Â°(â¬â¬â¬ÂÃ´Â¤Ã¬((â¬â¬â¬Ââ¦Ãâ¦Â¥ÃÂâËÂ¹ÂÂ½Â¹ÃÂ¥ÃâÂ¹ÃÃââ¦ÃâÂ¡Ã¬(â¬â¬â¬â¬â¬ÂÃÂ¡â¢ÃâÃ¨ÂÃ¬ÂÂ¥ÂÃ¨ÂÂÂ½Â¹ÃÂ¥ÃâÂ¹Â¥ÂÂÃ´Â°(â¬â¬â¬â¬â¬Âââ¦ÃâÃ¨ÂÃ¬ÂÃÃâ¦âÂ½AÂ½ÃÃ¨ÂÃâ¢ÃÃÂ¥Â½Â¸Â¹ÃÃâ¢ÃÂ¹Â¥ÂÂ°ÂÃÃâ¦âÂ½Â´Ã¨ÂÂ¹â¢ÃÂâ¦ÃâÂ Â¤ÂÃ´Â°(â¬â¬â¬ÂÃ´Â¤Ã¬(â¬ÂÃ´((â¬ÂÃâ¢ÃÃÃÂ¸Â9â¢Ã¡ÃIâ¢ÃÃÂ½Â¹ÃâÂ¹Ãâ¢âÂ¥Ãâ¢ÂÃÂ (â¬â¬â¬ÂÂ¹â¢ÃÂUI0Â¡â¬Â½â¢ÃÃâ¦ÂÂ¼Â¼âÃ­ÂÂ½Â¹ÃÂ¥ÃâÂ¹â¢ÃÃâ¦ÂÂ½%âÃµâ¬Â°ÂÃâ¢ÃÃâ¢ÃÃÂ¹ÃÃÂ°Â¤(â¬â¬Â¤Ã¬)Ã´((Â¼Â¼ÂA=MPâ¬Â½â¦ÃÂ¤Â½ÂÂ½Â¹ÃÂ¥Ãâ¢ÃÆÅ PÂÂÃÂ¥â¦ÃÂÂÂ½Â¹ÃÂ¥Ãâ)â¢Ã¡ÃÂ½ÃÃÂâ¦ÃÃ¥Â¹ÅÂâ¢ÃÂ¹ÂÃÂ¥Â½Â¸ÂA=MPÂ¡Ãâ¢ÃÃâ¢ÃÃÃ¨Â9â¢Ã¡ÃIâ¢ÃÃâ¢ÃÃÂ¤ÂÃ¬(â¬ÂÂÂ½Â¹ÃÃÂÃâ¢ÃÃÂ¥Â½Â¸â¬Ã´Ââ¦Ãâ¦Â¥ÃÂâ¦ÃÃÂ Â Â¤Ã¬(â¬ÂÂ¥Ëâ¬Â â¦Ãâ¢ÃÃÂ¥Â½Â¸Ã¼Â¹ÃÃâ¢ÃÃ¼Â¹Â¥ÂÂ¤ÂÃ¬(â¬â¬â¬ÂÃâ¢ÃÃÃÂ¸Â9â¢Ã¡ÃIâ¢ÃÃÂ½Â¹ÃâÂ¹Â©ÃÂ½Â¸Â¡Ã¬Ââ¢ÃÃÂ½ÃÃ¨â¬â°;ÂÂ¼Ââ¦ÃÃÂ½ÃÂ¥Ã©â¦âÂ¼ËÂÃ´Â°ÂÃ¬ÂÃÃâ¦ÃÃÃÃ¨â¬ÃÃÃÂÃ´Â¤Ã¬(â¬ÂÃ´((â¬ÂÂÂ½Â¹ÃÃÂÃ¬Ââ¢ÃÃâ¦ÂÂ½%ÂÂÃ´â¬Ã´Ââ¦Ãâ¦Â¥ÃÂÃâ¢ÃÃâ¢ÃÃÂ¹Â©ÃÂ½Â¸Â Â¤Ã¬((â¬ÂÂÂ½Â¹ÃÃÂÂµâ¢Âµâ°ÃÂ¼â¬Ã´Ââ¦Ãâ¦Â¥ÃÂâËÂ¹Âµâ¢Âµâ°ÃÂ¼Â¹â¢Â¥Â¹âUÂ¹Â¥ÃÃâÂ¡Ã¬(â¬â¬â¬ÂÃÂ¡â¢ÃâÃ¨ÂÃ¬Ââ¢ÃÃâ¦ÂÂ½%â}ÃÃâ¢Ã%ÂÃ¨ÂÃ¬Ââ¢ÃÃâ¦ÂÂ½%ÂÂÃÃâ¢Ã%ÂÃ¨ÂÃâ¢ÃÃÂ¥Â½Â¸Â¹ÃÃâ¢ÃÂ¹Â¥ÂÂÃ´ÂÃ´Â°(â¬ÂÃ´Â¤Ã¬((â¬ÂÂ¥Ëâ¬Â â¦Âµâ¢Âµâ°ÃÂ¼ÂÃ±Ã°ÂÂµâ¢Âµâ°ÃÂ¼Â¹Ãâ¦Ãâ¢Â°â¬âÃ´Ã´â¬â°5%8ËÂ¤ÂÃ¬(â¬â¬â¬ÂÃâ¢ÃÃÃÂ¸Â9â¢Ã¡ÃIâ¢ÃÃÂ½Â¹ÃâÂ¹Â©ÃÂ½Â¸Â¡Ã¬Ââ¢ÃÃÂ½ÃÃ¨â¬â°Ãâ¢Â¹â¦ÃÂâ¦âÂµÂ¥Â¹ÃÂÃÂ½ââ¢Â´ÂÂÃÂ¥â¦ÃÂÂÂ½Â¹ÃÂ¥Ãâ¢ÃËÂÃ´Â°ÂÃ¬ÂÃÃâ¦ÃÃÃÃ¨â¬ÃÃÃÂÃ´Â¤Ã¬(â¬ÂÃ´((â¬ÂÂÂ½Â¹ÃÃÂâ¢Ã¡ÃÂ¥Ãâ¦Â´â¬Ã´ÂÂ¹â¢ÃÂâ¦ÃâÂ Â¤Ã¬(â¬Ââ¢Ã¡ÃÂ¥Ãâ¦Â´Â¹Ãâ¢Ã!Â½ÃÃÃÂ¡â¢Ã¡ÃÂ¥Ãâ¦Â´Â¹Ââ¢Ã!Â½ÃÃÃÂ Â¤â¬Â¬â¬ÃÃÂ¤((â¬ÂÂÂ½Â¹ÃÃÂÂÂ½Â¹ÃÂ¥Ãââ¬Ã´Ââ¦Ãâ¦Â¥ÃÂâËÂ¹ÂÂ½Â¹ÃÂ¥ÃâÂ¹ÂÃâ¢â¦ÃâÂ¡Ã¬(â¬â¬â¬Âââ¦ÃâÃ¨ÂÃ¬(â¬â¬â¬â¬â¬Ââ¢ÃÃâ¦ÂÂ½%ÂÂ°(â¬â¬â¬â¬â¬ÂÂÃÂ¥â¦âÂ½AÂ½ÃÃ¨ÂÃâ¢ÃÃÂ¥Â½Â¸Â¹ÃÃâ¢ÃÂ¹Â¥ÂÂ°(â¬â¬â¬â¬â¬Ââ¢Ã¡ÃÂ¥Ãâ¦Â´Â°(â¬â¬â¬ÂÃ´Â°(â¬ÂÃ´Â¤Ã¬((â¬ÂÂÂ½Â¹ÃÃÂÂ±Â¥Â¹Â¬â¬Ã´Ââ¬âÃ­ÃÃÂ½Ââ¢ÃÃÂ¹â¢Â¹ÃÂ¹9aQ}AU	1%}AA}UI1Ã´Â½â¢Â¹ÃÃâ¦ÃÃ½ÂÂ½Â¹ÃÂ¥ÃâÃ´âÃ­ÂÂ½Â¹ÃÂ¥ÃâÂ¹ÂÂ½âÂ¥ÂÂ½Ãµâ¬Ã¬(â¬ÂÃâ¢ÃÃÃÂ¸Â9â¢Ã¡ÃIâ¢ÃÃÂ½Â¹ÃâÂ¹Â©ÃÂ½Â¸Â¡Ã¬ÂÂÂ½âÂ¥ÂÂ¼Ã¨ÂÂÂ½Â¹ÃÂ¥ÃâÂ¹ÂÂ½âÂ¥ÂÂ¼Â°ÂÂ±Â¥Â¹Â¬Â°Ââ¢Ã¡ÃÂ¥Ãâ¦Â´ÂÃ´Â¤Ã¬)Ã´
+  const link = `${process.env.NEXT_PUBLIC_APP_URL}/entrar?convite=${convite.codigo}`;
+  return NextResponse.json({ codigo: convite.codigo, link, expiraEm });
+}
