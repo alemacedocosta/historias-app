@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { Trash2, Pencil } from "lucide-react";
-import { Button } from "A/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import type { MemoriaComAutor } from "@/types";
 import { useRouter } from "next/navigation";
@@ -17,15 +17,15 @@ export function MemoriaCard({ memoria, isOwner }: MemoriaCardProps) {
   const router = useRouter();
 
   async function handleDelete() {
-    if (!confirm("Tem certeza que deseja excluir esta memória?")) return;
+    if (!confirm("Tem certeza que deseja excluir esta memÃ³ria?")) return;
     setLoading(true);
     try {
       const res = await fetch(`/api/memorias/${memoria.id}`, { method: "DELETE" });
       if (!res.ok) throw new Error();
-      toast.success("Memória excluída");
+      toast.success("MemÃ³ria excluÃ­da");
       router.refresh();
     } catch {
-      toast.error("Erro ao excluir memória");
+      toast.error("Erro ao excluir memÃ³ria");
     } finally {
       setLoading(false);
     }
@@ -38,7 +38,7 @@ export function MemoriaCard({ memoria, isOwner }: MemoriaCardProps) {
         <div className="flex-1">
           <h3 className="text-lg font-bold text-foreground leading-tight">{memoria.titulo}</h3>
           <p className="text-sm text-muted-foreground mt-1">
-            Por {memoria.autor.name ?? "Anônimo"}
+            Por {memoria.autor.name ?? "AnÃ´nimo"}
           </p>
         </div>
 
@@ -48,7 +48,7 @@ export function MemoriaCard({ memoria, isOwner }: MemoriaCardProps) {
               variant="ghost"
               size="icon"
               className="h-10 w-10 text-muted-foreground hover:text-foreground"
-              aria-label="Excluir memória"
+              aria-label="Excluir memÃ³ria"
               onClick={handleDelete}
               disabled={loading}
             >
@@ -71,7 +71,7 @@ export function MemoriaCard({ memoria, isOwner }: MemoriaCardProps) {
         </div>
       )}
 
-      {/* Conteúdo */}
+      {/* ConteÃºdo */}
       {memoria.conteudo && (
         <p className="text-base text-foreground leading-relaxed whitespace-pre-wrap">
           {memoria.conteudo}
