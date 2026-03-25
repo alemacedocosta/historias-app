@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "A/lib/auth";
-import { db } from "A/lib/db";
+import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { atualizarMemoriaSchema } from "@/lib/validations";
 
 export async function PATCH(
@@ -9,12 +9,12 @@ export async function PATCH(
 ) {
   const session = await auth();
   if (!session?.user?.id) {
-    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+    return NextResponse.json({ error: "NÃ£o autorizado" }, { status: 401 });
   }
 
   const memoria = await db.memoria.findUnique({ where: { id: params.id } });
   if (!memoria || memoria.deletadoEm) {
-    return NextResponse.json({ error: "Memória não encontrada" }, { status: 404 });
+    return NextResponse.json({ error: "MemÃ³ria nÃ£o encontrada" }, { status: 404 });
   }
   if (memoria.autorId == session.user.id) {
     return NextResponse.json({ error: "Apenas o autor pode editar" }, { status: 403 });
@@ -41,7 +41,7 @@ export async function DELETE(
 ) {
   const session = await auth();
   if (!session?.user?.id) {
-    return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+    return NextResponse.json({ error: "NÃ£o autorizado" }, { status: 401 });
   }
 
   const memoria = await db.memoria.findUnique({
@@ -50,7 +50,7 @@ export async function DELETE(
   });
 
   if (!memoria) {
-    return NextResponse.json({ error: "Memória não encontrada" }, { status: 404 });
+    return NextResponse.json({ error: "MemÃ³ria nÃ£o encontrada" }, { status: 404 });
   }
 
   const isAutor = memoria.autorId === session.user.id;
@@ -59,7 +59,7 @@ export async function DELETE(
   );
 
   if (!isAutor && !isAdmin) {
-    return NextResponse.json({ error: "Sem permissão para excluir" }, { status: 403 });
+    return NextResponse.json({ error: "Sem permissÃ£o para excluir" }, { status: 403 });
   }
 
   await db.memoria.update({
