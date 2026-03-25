@@ -20,8 +20,7 @@ export const TrialExpired: Story = {
 };
 
 export const UpgradeRequired: Story = {
-  args: {
-    titulo: "Funcionalidade exclusiva PRO",
+  args: {U"()�R  titulo: "Funcionalidade exclusiva PRO",
     descricao: "Faça upgrade para exportar a timeline da sua família em PDF.",
   },
 };

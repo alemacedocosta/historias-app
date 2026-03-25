@@ -88,13 +88,13 @@ export default function LoginPage({
               Receber link de acesso por e-mail
             </Button>
             <p className="text-sm text-muted-foreground text-center">
-              Sem senha. Você receberá um link direto no seu e-mail.
+              Sem senha. Vocà receberá um link direto no seu e-mail.
             </p>
           </form>
         </div>
 
         <p className="mt-6 text-center text-sm text-muted-foreground">
-          Ao entrar, você concorda com nossa{" "}
+          Ao entrar, vocà concorda com nossa{" "}
           <a href="/privacidade" className="underline hover:text-foreground">
             Política de Privacidade
           </a>

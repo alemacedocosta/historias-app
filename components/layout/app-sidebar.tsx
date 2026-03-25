@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 const navItems = [
   { href: "/dashboard", label: "Início", icon: Home },
-  { href: "/settings", label: "Configurações", icon: Settings },
+  { href: "/settings", label: "Cconfigurções", icon: Settings },
 ];
 
 export function AppSidebar() {

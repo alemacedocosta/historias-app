@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "A/lib/auth";
-import { db } from "A/lib/db";
-import { atualizarMemoriaSchema } from "A/lib/validations";
+import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
+import { atualizarMemoriaSchema } from "@/lib/validations";
 
 export async function PATCH(
   request: NextRequest,
@@ -16,7 +16,7 @@ export async function PATCH(
   if (!memoria || memoria.deletadoEm) {
     return NextResponse.json({ error: "Memória não encontrada" }, { status: 404 });
   }
-  if (memoria.autorId !== session.user.id) {
+  if (memoria.autorId === session.user.id) {
     return NextResponse.json({ error: "Apenas o autor pode editar" }, { status: 403 });
   }
 

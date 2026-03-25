@@ -3,7 +3,7 @@ import { tokens } from "../../design-system/tokens";
 
 const SpacingScale = () => (
   <div style={{ padding: "24px", fontFamily: "Arial, sans-serif" }}>
-    <h2 style={{ fontSize: �"20px", fontWeight: "bold", marginBottom: "24px" }}>
+    <h2 style={{ fontSize: "20px", fontWeight: "bold", marginBottom: "24px" }}>
       Design Tokens — Espaçamento
     </h2>
     <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>

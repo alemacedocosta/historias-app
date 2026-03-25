@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "A/lib/auth";
-import { db } from "A/lib/db";
+import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { createClient } from "@supabase/supabase-js";
 
 const supabaseAdmin = createClient(
@@ -47,7 +47,6 @@ export async function POST(request: NextRequest) {
     .from("memorias")
     .getPublicUrl(data.path);
 
-  // Atualizar storage usado do espaço
   const tamanhoMb = file.size / (1024 * 1024);
   await db.espaco.update({
     where: { id: espacoId },

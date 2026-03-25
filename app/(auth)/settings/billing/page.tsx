@@ -1,10 +1,10 @@
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
-import { hasAccess, isSubscribed, daysLeftInTrial } from "@/lib/subscription";
+import { hasAccess } from "@/lib/subscription";
 import { CheckoutButton } from "@/components/billing/checkout-button";
 import { PortalButton } from "@/components/billing/portal-button";
-import { Check } from "lucide-react";
+import { Check, Crown } from "lucide-react";
 
 export default async function BillingPage() {
   const session = await auth();
@@ -13,73 +13,55 @@ export default async function BillingPage() {
   const user = await db.user.findUnique({ where: { id: session.user.id } });
   if (!user) redirect("/login");
 
-  const subscribed = isSubscribed(user);
-  const trialDays = daysLeftInTrial(user);
+  const acesso = hasAccess(user);
+  const isPro = user.plan === "PRO";
 
   return (
     <div className="max-w-2xl mx-auto px-6 py-10">
-      <h1 className="text-3xl font-bold mb-2">Assinatura</h1>
-      <p className="text-muted-foreground text-lg mb-8">
-        Gerencie seu plano e pagamento.
-      </p>
+      <h1 className="text-3xl font-bold mb-8">Assinatura</h1>
 
-      {/* Status atual */}
-      <div className="border border-border p-6 bg-card mb-8">
-        <h2 className="text-lg font-bold mb-1">Plano atual</h2>
-        <p className="text-base text-muted-foreground">
-          {subscribed ? (
-            <span className="text-green-700 font-medium">PRO — Ativo</span>
-          ) : user.plan === "TRIAL" ? (
-            <span>Avaliação gratuita — {trialDays} dias restantes</span>
-          ) : (
-            <span className="text-destructive font-medium">Plano FREE — sem acesso a espaços</span>
-          )}
-        </p>
-        {subscribed && user.stripeCurrentPeriodEnd && (
-          <p className="text-sm text-muted-foreground mt-2">
-            Renova em{" "}
-            {new Date(user.stripeCurrentPeriodEnd).toLocaleDateString("pt-BR")}
-          </p>
+      <div className="border border-border p-8 bg-card">
+        {!acesso && (
+          <div className="bg-yellow-50/20 border border-yellow-200 p-4 rounded mb-6 text-yellow-800">
+            Sua avaliação gratuita expirou. Assine o plano PRO para continuar usando.
+          </div>
+        )}
+
+        <div className="flex items-center gap-3 mb-6">
+          <Crown className="w-8 h-8 text-yellow-500" />
+          <div>
+            <h3 className="text-xl font-bold">Plano PRO</h3>
+            <p className="text-muted-foreground">R$ 19.99/mês</p>
+          </div>
+        </div>
+
+        <ul className="space-y-2 mb-8">
+          {[
+            "Espaços familiares ilimitados",
+            "Imagens e vídeos em alta resolução",
+            "Invite membros da família",
+            "Acesso permanente à história da família",
+            "Suporte prioritário",
+          ].map((item) => (
+            <li key={item} className="flex items-center gap-2 text-sm">
+              <Check className="w-4 h-4 text-green-500" /> {item}
+            </li>
+          ))}
+        </ul>
+
+        {isPro ? (
+          <div>
+            <p className="text-sm text-muted-foreground mb-4">
+              Assinatura ativa é válida atå {user.stripeCurrentPeriodEnd
+                ? new Date(user.stripeCurrentPeriodEnd).toLocaleDateString("pt-BR")
+                : "-"}.
+            </p>
+            <PortalButton />
+          </div>
+        ) : (
+          <CheckoutButton priceId={process.env.STRIPE_PRICE_ID!} />
         )}
       </div>
-
-      {subscribed ? (
-        <div className="space-y-4">
-          <p className="text-base text-muted-foreground">
-            Você tem acesso completo ao plano PRO. Para cancelar ou alterar sua assinatura, use o portal abaixo.
-          </p>
-          <PortalButton />
-        </div>
-      ) : (
-        <div className="border border-border p-8">
-          <div className="flex items-baseline gap-2 mb-2">
-            <span className="text-4xl font-bold">R$ 19,90</span>
-            <span className="text-muted-foreground text-lg">/mês</span>
-          </div>
-          <p className="text-muted-foreground mb-6">
-            ou R$ 179/ano (economia de ~25%)
-          </p>
-
-          <ul className="space-y-3 mb-8">
-            {[
-              "Espaços familiares ilimitados",
-              "Membros ilimitados por espaço",
-              "Memórias ilimitadas",
-              "5 GB de armazenamento de fotos por bespaço",
-              "Exportação em PDF",
-              "Moderação de membros",
-              "Suporte prioritário",
-            ].map((item) => (
-              <li key={item} className="flex items-center gap-3 text-base">
-                <Check className="w5 h-5 text-foreground shrink-0" />
-                {item}
-              </li>
-            ))}
-          </ul>
-
-          <CheckoutButton />
-        </div>
-      )}
     </div>
   );
 }

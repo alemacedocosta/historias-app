@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "A/lib/auth";
-import { db } from "A/lib/db";
+import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { criarEspacoSchema } from "@/lib/validations";
-import { hasAccess } from "A/lib/subscription";
+import { hasAccess } from "@/lib/subscription";
 
 export async function GET() {
   const session = await auth();
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
   const user = await db.user.findUnique({ where: { id: session.user.id } });
   if (!user || !hasAccess(user)) {
     return NextResponse.json(
-      { error: "Plano PRO necessério para criar espaços" },
+      { error: "Plano PRO necessário para criar espaços" },
       { status: 403 }
     );
   }

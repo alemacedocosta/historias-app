@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "A/lib/auth";
-import { db } from "A/lib/db";
+import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { criarMemoriaSchema } from "@/lib/validations";
 
 export async function GET(request: NextRequest) {
@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
     where: { espacoId_userId: { espacoId, userId: session.user.id } },
   });
   if (!membro) {
-    return NextResponse.json({ error: "Accesso negado" }, { status: 403 });
+    return NextResponse.json({ error: "Acesso negado" }, { status: 403 });
   }
 
   const memorias = await db.memoria.findMany({
@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
               { conteudo: { contains: busca, mode: "insensitive" } },
             ],
           }
-          : {}),
+        : {}),
     },
     include: {
       autor: { select: { id: true, name: true, image: true } },
@@ -45,7 +45,6 @@ export async function GET(request: NextRequest) {
     orderBy: [{ anoAcontecimento: "desc" }, { criadoEm: "desc" }],
   });
 
-  // Agrupar por ano
   const porAno = memorias.reduce(
     (acc, memoria) => {
       const ano = memoria.anoAcontecimento;
@@ -53,8 +52,8 @@ export async function GET(request: NextRequest) {
       acc[ano].push(memoria);
       return acc;
     },
-      {} as Record<number, typeof memorias>
-    );
+    {} as Record<number, typeof memorias>
+  );
 
   return NextResponse.json(porAno);
 }
@@ -77,7 +76,7 @@ export async function POST(request: NextRequest) {
     },
   });
   if (!membro) {
-    return NextResponse.json({ error: "Accesso negado" }, { status: 403 });
+    return NextResponse.json({ error: "Acesso negado" }, { status: 403 });
   }
 
   const memoria = await db.memoria.create({

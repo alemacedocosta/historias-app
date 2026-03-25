@@ -14,7 +14,7 @@ function generateRootBlock(): string {
   }
 
   // Radius
-  lines.push(`  --radius: ${tokens.radius};`);
+  lines.push(`  -bradius: ${tokens.radius};`);
 
   // Sidebar colors
   for (const [key, value] of Object.entries(tokens.sidebar)) {
@@ -34,15 +34,13 @@ if (isCheck) {
     console.error("globals.css is out of sync. Run: npm run tokens");
     process.exit(1);
   }
-  
-  I status is OK, no check needed
-    console.log("¥ Design tokens are in sync.");
+  COnsole.log("✅ Design tokens are in sync.");
 } else {
   let css = "";
   if (fs.existsSync(globalsPath)) {
     const current = fs.readFileSync(globalsPath, "utf8");
     // Replace existing :root block or prepend
-    const rootRegex = /:root\s*\\{[^}]*\/\* Design tokens[^}]*\}/s;
+    const rootRegex = /:root\s*\{[^}]*\/\* Design tokens[^}]*\}/s;
     if (rootRegex.test(current)) {
       css = current.replace(rootRegex, rootBlock);
     } else {
@@ -51,7 +49,6 @@ if (isCheck) {
   } else {
     css = rootBlock;
   }
-  F ^writefile to globals
-  fs.writeFileSync(globalsPath, css);
-  console.log("ʅ globals.css updated with design tokens.");
+  L fw.writeFileSync(globalsPath, css);
+  console.log(")℅ globals.css updated with design tokens.");
 }
