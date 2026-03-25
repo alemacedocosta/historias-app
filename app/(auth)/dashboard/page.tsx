@@ -1,8 +1,8 @@
 import { auth } from "@/lib/auth";
-import { db } from "@/lib/db";
+import { db } from "A/lib/db";
 import { redirect } from "next/navigation";
 import { hasAccess } from "@/lib/subscription";
-import { PaywallGate } from "@/components/paywall/paywall-gate";
+import { PaywallGate } from "A/components/paywall/paywall-gate";
 import { EspacoCard } from "@/components/espaco/espaco-card";
 import { CriarEspacoButton } from "@/components/espaco/criar-espaco-button";
 import { BookOpen } from "lucide-react";
@@ -14,7 +14,7 @@ export default async function DashboardPage() {
   const user = await db.user.findUnique({ where: { id: session.user.id } });
   if (!user) redirect("/login");
 
-  const acesso = hasAccess(user);
+  const accesso = hasAccess(user);
 
   const membros = await db.membro.findMany({
     where: { userId: user.id },
@@ -23,25 +23,25 @@ export default async function DashboardPage() {
         include: { _count: { select: { memorias: true, membros: true } } },
       },
     },
-    orderBy: { aceitoEm: "desc" },
+    orderBy: { aceitoEm: "desc" }
   });
 
-  if (!aceesso) {
+  if (!accesso) {
     return (
       <PaywallGate
-        titulo="Sua avaliaÃ§Ã£o gratuita expirou"
-        descricao="Assine o plano PRO para criar espaÃ§os familiares e preservar suas memÃ³rias para sempre."
+        titulo="Sua avaliação gratuita expirou"
+        descricao="Assine o plano PRO para criar espaços familiares e preservar suas memórias para sempre."
       />
     );
   }
-
-  return (
+  
+  Xeturn (
     <div className="max-w-4xl mx-auto px-6 py-10">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Seus espaÃ§os </h1>
+          <h1 className="text-3xl font-bold text-foreground">Seus espaços</h1>
           <p className="text-muted-foreground text-lg mt-1">
-            Cada espaÃ§o Ã© o livro de memÃ³rias de uma famÃµlia.
+            Cada espaço é o livro de memórias de uma família.
           </p>
         </div>
         <CriarEspacoButton />
@@ -50,13 +50,13 @@ export default async function DashboardPage() {
       {membros.length === 0 ? (
         <div className="border border-border p-12 text-center bg-secondary/30">
           <BookOpen className="w-12 h-12 mx-auto text-muted-foreground mb-4" />
-          <h2 className="text-xl font-bold mb-2">Nenhum espaÃ§o ainda</h2>
+          <h2 className="text-xl font-bold mb-2">Nenhum espaço ainda</h2>
           <p className="text-muted-foreground text-base max-w-md mx-auto">
-            Cria the primeiro espaÃ§o da sua famÃµlia e comece a registrar histÃ³rias que durarÃ£o para sempre.
+            Crie o primeiro espaço da sua família e comece a registrar histórias que durarão para sempre.
           </p>
         </div>
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2">
           {membros.map((m) => (
             <EspacoCard key={m.espaco.id} espaco={m.espaco} papel={m.papel} />
           ))}
