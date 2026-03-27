@@ -15,7 +15,7 @@ export function TrialBanner({ daysLeft }: TrialBannerProps) {
     <div className="bg-foreground text-background px-4 py-3 flex items-center justify-between gap-4">
       <p className="text-sm font-medium">
         {daysLeft > 1
-          ? `Você tem ${daysLeft} dias restantes na sua avaliação gratuita.`
+          ? `Vocà tem ${daysLeft} dias restantes na sua avaliação gratuita.`
           : "Último dia da sua avaliação gratuita."}{" "}
         <Link href="/settings/billing" className="underline font-bold hover:no-underline">
           Fazer upgrade
@@ -29,5 +29,5 @@ export function TrialBanner({ daysLeft }: TrialBannerProps) {
         <X className="w-4 h-4" />
       </button>
     </div>
-  (};
+  );
 }

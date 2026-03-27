@@ -56,9 +56,9 @@ export default function LandingPage() {
         <h2 className="text-3xl font-bold text-center mb-14">
           Tudo que a sua família precisa para nunca esquecer
         </h2>
-        <div class="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
           {[
-             {
+            {
               icon: Clock,
               title: "Linha do Tempo da Família",
               desc: "Timeline vertical organizada pelo ANO do acontecimento — não pela data de postagem. Role para baixo e viaje pelo passado da família.",
@@ -91,16 +91,16 @@ export default function LandingPage() {
           ].map((f) => {
             const Icon = f.icon;
             return (
-              <div key={f.title} class="border border-border p-8 bg-card">
-                <div class="w-12 h-12 bg-secondary flex items-center justify-center mb-4">
-                  <Icon class="w-6 h-6" />
+              <div key={f.title} className="border border-border p-8 bg-card">
+                <div className="w-12 h-12 bg-secondary flex items-center justify-center mb-4">
+                  <Icon className="w-6 h-6" />
                 </div>
-                <h3 class="text-xl font-bold mb-2">{f.title}</h3>
-                <p class="text-muted-foreground text-base leading-relaxed">{f.desc}</p>
+                <h3 className="text-xl font-bold mb-2">{f.title}</h3>
+                <p className="text-muted-foreground text-base leading-relaxed">{f.desc}</p>
               </div>
             );
           })}
-          </div>
+        </div>
       </section>
 
       {/* Visual divider */}
@@ -115,17 +115,25 @@ export default function LandingPage() {
           Uma única assinatura. Espaços ilimitados. Memórias ilimitadas.
         </p>
 
-        <div class="border-2 border-foreground p-10">
-          <div class="flex items-baseline gap-2 justify-center mb-2">
-            <span class="text-5xl font-bold">R$ 19,90</span>
-            <span class="text-muted-foreground text-xl">/mês</span>
+        <div className="border-2 border-foreground p-10">
+          <div className="flex items-baseline gap-2 justify-center mb-2">
+            <span className="text-5xl font-bold">R$ 19,90</span>
+            <span className="text-muted-foreground text-xl">/mês</span>
           </div>
-          <p class="text-muted-foreground mb-8">ou R$ 179/ano 〔 ~25% de desconto</p>
-          <ul class="space-y-3 text-left mb-10">
-            {
-[ "Espaços familiares ilimitados","Membros ilimitados por espaço","Memorias ilimitadas","5 GB de fotos por espaço","Exportação em PDF","Moderação de membros","14 dias grátis para experimentar",].map((item) => (
-              <li key={item} class="flex items-center gap-3 text-base">
-                <Check class="w-5 h-5 shrink-0" />
+          <p className="text-muted-foreground mb-8">ou R$ 179/ano — ~25% de desconto</p>
+
+          <ul className="space-y-3 text-left mb-10">
+            {[
+              "Espaços familiares ilimitados",
+              "Membros ilimitados por espaço",
+              "Memórias ilimitadas",
+              "5 GB de fotos por espaço",
+              "Exportação em PDF",
+              "Moderação de membros",
+              "14 dias grátis para experimentar",
+            ].map((item) => (
+              <li key={item} className="flex items-center gap-3 text-base">
+                <Check className="w-5 h-5 shrink-0" />
                 {item}
               </li>
             ))}
@@ -133,27 +141,27 @@ export default function LandingPage() {
 
           <Link
             href="/login"
-            class="block w-full h-[72px] bg-foreground text-background text-lg font-bold inline-flex items-center justify-center hover:bg-foreground/90 transition-colors"
+            className="block w-full h-[72px] bg-foreground text-background text-lg font-bold inline-flex items-center justify-center hover:bg-foreground/90 transition-colors"
           >
             Começar 14 dias grátis
           </Link>
-          <p class="text-sm text-muted-foreground mt-4">
+          <p className="text-sm text-muted-foreground mt-4">
             Sem cartão de crédito. Cancele quando quiser.
           </p>
         </div>
       </section>
 
       {/* Footer */}
-      <footer class="border-t border-border">
-        <div class="max-w-4xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <div class="flex items-center gap-2">
-            <BookOpen class="w-4 h-4" />
-            <span class="font-semibold text-foreground">Histórias</span>
+      <footer className="border-t border-border">
+        <div className="max-w-4xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <BookOpen className="w-4 h-4" />
+            <span className="font-semibold text-foreground">Histórias</span>
             <span>— O livro vivo da sua família.</span>
           </div>
-          <div class="flex gap-6">
-            <Link href="/privacidade" class="hover:text-foreground transition-colors">Privacidade</Link>
-            <Link href="/termos" class="hover:text-foreground transition-colors">Termos</Link>
+          <div className="flex gap-6">
+            <Link href="/privacidade" className="hover:text-foreground transition-colors">Privacidade</Link>
+            <Link href="/termos" className="hover:text-foreground transition-colors">Termos</Link>
           </div>
         </div>
       </footer>

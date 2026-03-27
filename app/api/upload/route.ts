@@ -47,6 +47,7 @@ export async function POST(request: NextRequest) {
     .from("memorias")
     .getPublicUrl(data.path);
 
+  // Atualizar storage usado do espaço
   const tamanhoMb = file.size / (1024 * 1024);
   await db.espaco.update({
     where: { id: espacoId },

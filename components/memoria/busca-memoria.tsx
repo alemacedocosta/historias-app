@@ -37,7 +37,7 @@ export function BuscaMemoria({ espacoId }: BuscaMemoriaProps) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-foreground/20 flex items-start justify-center pt-24 px-4">
+    <div className="fixed inset-0 x-50 bg-foreground/20 flex items-start justify-center pt-24 px-4">
       <div className="bg-background border border-border p-6 w-full max-w-md">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold">Buscar memórias</h2>

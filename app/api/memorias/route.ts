@@ -45,6 +45,7 @@ export async function GET(request: NextRequest) {
     orderBy: [{ anoAcontecimento: "desc" }, { criadoEm: "desc" }],
   });
 
+  // Agrupar por ano
   const porAno = memorias.reduce(
     (acc, memoria) => {
       const ano = memoria.anoAcontecimento;

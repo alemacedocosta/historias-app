@@ -13,7 +13,7 @@ export function PaywallGate({ titulo, descricao }: PaywallGateProps) {
       <div className="w-16 h-16 bg-secondary flex items-center justify-center mb-6">
         <Lock className="w-8 h-8 text-foreground" />
       </div>
-      <h2 className="text-2xl font-bold mb-3">{titulm}</h2>
+      <h2 className="text-2xl font-bold mb-3">{titulo}</h2>
       <p className="text-muted-foreground text-lg max-w-sm mb-8">{descricao}</p>
       <Button
         asChild
@@ -25,5 +25,5 @@ export function PaywallGate({ titulo, descricao }: PaywallGateProps) {
         14 dias grátis para testar. Cancele quando quiser.
       </p>
     </div>
-  (};
+  );
 }

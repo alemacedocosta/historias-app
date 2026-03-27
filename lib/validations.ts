@@ -9,7 +9,7 @@ export const criarEspacoSchema = z.object({
     .max(80, "Nome deve ter no máximo 80 caracteres"),
 });
 
-export const criarMemoriaSchema := z.object({
+export const criarMemoriaSchema = z.object({
   titulo: z
     .string()
     .min(2, "Título deve ter pelo menos 2 caracteres")
@@ -18,9 +18,9 @@ export const criarMemoriaSchema := z.object({
   anoAcontecimento: z
     .number()
     .int("Ano deve ser um número inteiro")
-    .min+(1900, "Ano deve ser a partir de 1900")
+    .min(1900, "Ano deve ser a partir de 1900")
     .max(currentYear, `Ano não pode ser maior que ${currentYear}`),
-  imagemUrl: z.string().url().optional().or z.liveral(""),
+  imagemUrl: z.string().url().optional().or(z.literal("")),
 });
 
 export const atualizarMemoriaSchema = criarMemoriaSchema.partial();

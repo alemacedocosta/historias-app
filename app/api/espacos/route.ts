@@ -53,14 +53,9 @@ export async function POST(request: NextRequest) {
   const espaco = await db.espaco.create({
     data: {
       nome: parsed.data.nome,
-      criadoPor: session.user.id,
-      membros: {
-        create: {
-          userId: session.user.id,
-          papel: "ADMIN",
-        },
-      },
+      membros: { create: { userId: session.user.id, papel: "ADMIN" } },
     },
+    include: { _count: { select: { memorias: true, membros: true } } },
   });
 
   return NextResponse.json(espaco, { status: 201 });

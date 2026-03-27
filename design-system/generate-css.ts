@@ -14,7 +14,7 @@ function generateRootBlock(): string {
   }
 
   // Radius
-  lines.push(`  -bradius: ${tokens.radius};`);
+  lines.push(`  --radius: ${tokens.radius};`);
 
   // Sidebar colors
   for (const [key, value] of Object.entries(tokens.sidebar)) {
@@ -34,7 +34,7 @@ if (isCheck) {
     console.error("globals.css is out of sync. Run: npm run tokens");
     process.exit(1);
   }
-  COnsole.log("✅ Design tokens are in sync.");
+  console.log("✅ Design tokens are in sync.");
 } else {
   let css = "";
   if (fs.existsSync(globalsPath)) {
@@ -49,6 +49,6 @@ if (isCheck) {
   } else {
     css = rootBlock;
   }
-  L fw.writeFileSync(globalsPath, css);
-  console.log(")℅ globals.css updated with design tokens.");
+  fs.writeFileSync(globalsPath, css);
+  console.log("✅ globals.css updated with design tokens.");
 }

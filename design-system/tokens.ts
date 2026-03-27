@@ -31,7 +31,7 @@ export const tokens = {
     "3xl": "4rem",
   },
   typography: {
-    fontSizeBase: "1rem",        // 16px - mínimo para séniors
+    fontSizeBase: "1rem",        // 16px - mínimo para sêniors
     fontSizeInput: "1.125rem",   // 18px para campos de input
     fontSizeLg: "1.25rem",
     fontSizeXl: "1.5rem",
