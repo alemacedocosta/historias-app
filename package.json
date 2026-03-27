@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npx prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "tokens": "tsx design-system/generate-css.ts",
-    "tokens:check": "tsx design-system/generate-css.ts --check",
+    "tokens:ckeck": "tsx design-system/generate-css.ts --check",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -27,7 +27,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "resend": "^4.0.0",
-    "sonner": "^1.4.0",
+    "sonner": "^1.5.0",
     "stripe": "^17.3.1",
     "tailwind-merge": "^2.5.2",
     "zod": "^3.23.8"
@@ -43,13 +43,14 @@
     "@types/node": "^20.14.9",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.20",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.15",
-    "autoprefixer": "^10.4.20",
     "postcss": "^8.4.41",
     "prisma": "^6.5.0",
     "storybook": "^8.3.5",
     "tailwindcss": "^3.4.10",
+    "tailwindcss-animate": "^1.0.7",
     "tsx": "^4.19.1",
     "typescript": "^5.5.3"
   }
